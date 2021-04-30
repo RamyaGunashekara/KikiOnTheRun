@@ -3,6 +3,11 @@
 **Problem 01**
 
 **Delivery Cost Estimation With Offers**
+Points to note:
+
+1. Only one offer code can be applied for a given package
+2. Package should meet the required mentioned offer criterias
+3. If offer code is not valid/found discounted amount will be equal to 0.
 
 <img width="314" alt="Screenshot 2021-04-27 103757" src="https://user-images.githubusercontent.com/12389045/116703220-a70b3080-a9e7-11eb-9871-79e914e5c3cb.png">
 
