@@ -1,8 +1,9 @@
 # KikiOnTheRun
 
-**Problem 01**
+## Problem 01
 
-**Delivery Cost Estimation With Offers**
+### Delivery Cost Estimation With Offers
+
 Points to note:
 
 1. Only one offer code can be applied for a given package
@@ -15,20 +16,24 @@ I have added a new offer code **OFR004 20% discount Distance - 100.4 - 250.0 Wei
 
 Delivery cost is calculated using the below formula 
 
-![image](https://user-images.githubusercontent.com/12389045/117232165-42fcc800-ae3e-11eb-9591-8614ee5b2019.png)
+TOTAL COST = BASECOST + WEIGHT * 10 + DISTANCE *  5
+--------------------------------------------------- |
+DELIVERYCOST = TOTALCOST - DISCOUNT(IF ANY)
 
-Assumptions 
+#### ASSUMPTIONS 
 
 1. If the user doesn't have a valid Offer code he can enter NA.
 2. If the input is invalid, system will prompt the user with "Please enter correct input" and user has to restart.
 4. Output will be in the format of Package name Discount TotalCost
 5. OfferCodes can either have weightRange as null or Distance Range as null or both.
 6. Weights entered for each package cant be <=0 or > maximum load specified 
-7. Distance, Load, Speed, Vehicles, Base Delivery Cost cannot be less than 0. 
+7. Distance, Load, Speed, Vehicles, Base Delivery Cost cannot be less than 0.
 
-**Problem 02**
+--------------------------------------------------------------------------------------------------------------------------------
 
-**Delivery Time Estimation**
+## Problem 02
+
+### Delivery Time Estimation
 
 Points to note:
 1. Each vehicle has a limit on Weight that it can carry.
@@ -40,30 +45,55 @@ Points to note:
 
 Example considered 
 
-![image](https://user-images.githubusercontent.com/12389045/117234029-daafe580-ae41-11eb-80dd-bdbeb8ace2af.png)
+Packages | BaseCost | Vehicles | Speed | Load 
+---------|----------|----------|-------|-----
+5|100|2|70|200
+
+PackageName|Weight|Distance
+-----------|------|--------
+PK1|50|30
+PK2|75|125
+PK3|175|100
+PK4|110|60
+PK5|155|95
 
 **Method 1**
 
 Lets assume the package arrive in First Come First Service order and we club the packages by summing their weights upto the maximum weight.
-PK1 + PK2 (50 + 75)
-PK3 (175) can’t be clubbed with any other PK
-PK5 (155) can’t be clubbed with any other PK
-PK4 (110) can’t be clubbed with any other PK
 
-In this method, the other possible combinations are ignored which might be more efficient. 
+
+Packages | SUM
+---------|------
+PK1 + PK2 (50 + 75) | <200
+PK3 (175) | <200
+PK5 (155) | <200
+PK4 (110) | <200
+
+In this method, the other possible combinations are ignored which might be more efficient. <br>
 For Example
 
-PK3 (175)				
-PK5 (155)
-PK4 + PK1 (110 + 50) **OR** PK4 + PK2 (110 + 75)
-PK2 (75) 			              PK1(50)
+Combinations1 | Combinations 2
+----------------------|------------
+PK3 (175)	|			PK3(175)
+PK5 (155)|PK5(155)
+PK4 + PK1 (110 + 50) | PK4 + PK2 (110 + 75)
+PK2 (75) 	|		              PK1(50)
 
 **Method 2**
 
-Find all the possible combinations of the input and then select the best. 
-
-
-
+Find combinations for each package by iterating through the list of packages and add it into a nested list <br><br>
+List<List\<Double\>> combinations;
+  
+  PK | Combinations
+  ------------|---------
+  50 | 75, 110
+  75 | 50, 110
+  110 | 50, 75
+  155 | NA
+  175 | NA
+  
+ Select the best combination possible from the list.
+ 
 
 
 
