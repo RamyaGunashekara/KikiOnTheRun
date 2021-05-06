@@ -47,11 +47,12 @@ Example considered
 Lets assume the package arrive in First Come First Service order and we club the packages by summing their weights upto the maximum weight.
 
 i.e
-![image](https://user-images.githubusercontent.com/12389045/117234500-bef90f00-ae42-11eb-80e9-2a9fa51d90b1.png)
+![image](https://user-images.githubusercontent.com/12389045/117235089-bce38000-ae43-11eb-8bd0-f8d6fffd738d.png)
 
 In this method, the other possible combinations are ignored which might be more efficient.
 Clubbing 
-![image](https://user-images.githubusercontent.com/12389045/117234803-4f375400-ae43-11eb-9494-557cad2dbc82.png)
+![image](https://user-images.githubusercontent.com/12389045/117235137-c79e1500-ae43-11eb-99ca-fde025a5770f.png)
+
 
 
 
