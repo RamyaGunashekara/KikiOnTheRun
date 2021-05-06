@@ -93,7 +93,80 @@ List<List\<Double\>> combinations;
   175 | NA
   
  Select the best combination possible from the list.
+ This method will have a time complexity of O(2^n).
  
+ **Method 3**
 
+#### Divide and Conquer <br>
+Sort the List by Weight in descending order, by doing this we will have all the heavy packages in the beginning of the list which can be combined with lighter packages at the last. 
 
+PK1 | PK2 | PK3 | PK4 | PK5
+----|-----|-----|-----|----
+50|75|175|110|155
 
+#### SORT BY WEIGHT 
+  
+  PK3|PK5|PK4|PK2|PK1
+  ---|---|---|---|---
+  175|155|110|75|50
+  
+  
+  #### Let start = 175 and End = 50 and Add start value to the list 
+    * List     
+     * 175
+  
+  PK3|PK5|PK4|PK2|PK1
+  ---|---|---|---|---
+  **_175_**|155|110|75|**_50_**
+  
+ #### Value of start+end (175+50) > load, which means we dont have any package with smaller weight that can be clubbed with 175. 
+#### Increment start. 
+  
+  #### start = 155 end = 50
+  
+   * List     
+     * 175
+     * 155
+  
+   PK3|PK5|PK4|PK2|PK1
+  ---|---|---|---|---
+  175|**_155_**|110|75|**_50_**
+  
+  
+  #### 155+50 > Load(200), Increment start
+  
+  * List     
+     * 175
+     * 155
+     * 110
+
+  PK3|PK5|PK4|PK2|PK1
+  ---|---|---|---|---
+  175|155|**_110_**|75|**_50_**
+  
+  
+ #### 110+50 < Load(200), Add 50 to the list and decrement end
+  
+  * List     
+     * 175
+     * 155
+     * 110,50 
+  
+  
+  PK3|PK5|PK4|PK2|PK1
+  ---|---|---|---|---
+  175|155|**_110_**|**_75_**|**_50_**
+ 
+   
+  #### 110+50+75 > load(200), increment start 
+  
+  PK3|PK5|PK4|PK2|PK1
+  ---|---|---|---|---
+  175|155|110|**_75_**|50
+ 
+ #### start == end, End of loop.
+  * List     
+     * 175
+     * 155
+     * 110,50 
+     * 75
