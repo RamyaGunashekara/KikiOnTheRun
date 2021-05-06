@@ -46,7 +46,7 @@ Example considered
 
 Lets assume the package arrive in First Come First Service order and we club the packages by summing their weights upto the maximum weight.
 
-<img src="https://user-images.githubusercontent.com/12389045/117238282-31212200-ae4a-11eb-810b-09bc7a088bc4.png" width="100" height="100">
+<img src="https://user-images.githubusercontent.com/12389045/117238282-31212200-ae4a-11eb-810b-09bc7a088bc4.png" width="500" height="500">
 
 
 
