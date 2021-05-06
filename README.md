@@ -45,8 +45,23 @@ Example considered
 **Method 1**
 
 Lets assume the package arrive in First Come First Service order and we club the packages by summing their weights upto the maximum weight.
+PK1 + PK2 (50 + 75)
+PK3 (175) can’t be clubbed with any other PK
+PK5 (155) can’t be clubbed with any other PK
+PK4 (110) can’t be clubbed with any other PK
 
-<img src="https://user-images.githubusercontent.com/12389045/117238282-31212200-ae4a-11eb-810b-09bc7a088bc4.png" width="500" height="500">
+In this method, the other possible combinations are ignored which might be more efficient. 
+For Example
+
+PK3 (175)				
+PK5 (155)
+PK4 + PK1 (110 + 50) **OR** PK4 + PK2 (110 + 75)
+PK2 (75) 			              PK1(50)
+
+**Method 2**
+
+Find all the possible combinations of the input and then select the best. 
+
 
 
 
