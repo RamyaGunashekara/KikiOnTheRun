@@ -21,12 +21,37 @@ Assumptions
 
 1. If the user doesn't have a valid Offer code he can enter NA.
 2. If the input is invalid, system will prompt the user with "Please enter correct input" and user has to restart.
-3. Formula to calculate delivery cost ![Uploading image.png…]()
-      ![image](https://user-images.githubusercontent.com/12389045/116703932-72e43f80-a9e8-11eb-82d6-2699e4dc756b.png)
 4. Output will be in the format of Package name Discount TotalCost
 5. OfferCodes can either have weightRange as null or Distance Range as null or both.
 6. Weights entered for each package cant be <=0 or > maximum load specified 
 7. Distance, Load, Speed, Vehicles, Base Delivery Cost cannot be less than 0. 
+
+**Problem 02**
+
+**Delivery Time Estimation**
+
+Points to note:
+1. Each vehicle has a limit on Weight that it can carry.
+2. All vehicle travel at the same speed and same route
+3. We have to pick maximum number of packages in every shipment.
+
+
+**Thought process in picking and clubbing packages**
+
+Example considered 
+
+![image](https://user-images.githubusercontent.com/12389045/117234029-daafe580-ae41-11eb-80dd-bdbeb8ace2af.png)
+
+**Method 1**
+
+Lets assume the package arrive in First Come First Service order and we club the packages by summing their weights upto the maximum weight.
+
+i.e
+![image](https://user-images.githubusercontent.com/12389045/117234500-bef90f00-ae42-11eb-80e9-2a9fa51d90b1.png)
+
+In this method, the other possible combinations are ignored which might be more efficient.
+Clubbing 
+![image](https://user-images.githubusercontent.com/12389045/117234803-4f375400-ae43-11eb-9494-557cad2dbc82.png)
 
 
 
