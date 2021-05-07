@@ -84,6 +84,8 @@ PK5 (155)|PK5(155)
 PK4 + PK1 (110 + 50) | PK4 + PK2 (110 + 75)
 PK2 (75) 	|		              PK1(50)
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 **Method 2(All Permutations and Combinations)**
 
 Find combinations for each package by iterating through the list of packages and add it into a nested list <br><br>
@@ -102,6 +104,8 @@ List<List\<Double\>> combinations;
  #### Limitations
  This method will have a time complexity of **O(2^n)**.
  
+ ------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
  **Method 3(Chosen Method)**
 
 #### Binary search <br>
@@ -116,68 +120,66 @@ PK1 | PK2 | PK3 | PK4 | PK5
 50|75|175|110|155
 
 #### Step 1
-#### After sorting the packages BY WEIGHT 
+##### After sorting the packages BY WEIGHT 
   
   PK3|PK5|PK4|PK2|PK1
   ---|---|---|---|---
   175|155|110|75|50
-  
-  #### Let start = 175 and End = 50 and Add start value to the list 
-    * List     
-     * 175
-  
+ ---------------------------------------- 
+#### Step2 
+##### let start = 175 End = 50. Add start = 175 to sub List\<Double\> combo.
+#### combo = [175.00]
+  -------------------------------------------
+#### Step3
   PK3|PK5|PK4|PK2|PK1
   ---|---|---|---|---
   **_175_**|155|110|75|**_50_**
   
- #### Value of start+end (175+50) > load, which means we dont have any package with smaller weight that can be clubbed with 175. 
-#### Increment start. 
-  
-  #### start = 155 end = 50
-  
-   * List     
-     * 175
-     * 155
+ ##### SUM values of start+end (175+50), Check SUM > load(200), which means we dont have any package with smaller weight that can be clubbed with 175. 
+ ##### Stop here and add sub List<\Double\> combo to final List<List\<Double\> combinations; and clear the values of sub list combo.
+ #### Combinations = [[175.00]]
+ #### Combo = []
+ -------------------------------------------
+ #### Step 4
+ ##### start = 155 end = 50. Add start = 155 to sub list combo.
+ #### combo = [155.0]
   
    PK3|PK5|PK4|PK2|PK1
   ---|---|---|---|---
   175|**_155_**|110|75|**_50_**
   
-  
-  #### 155+50 > Load(200), Increment start
-  
-  * List     
-     * 175
-     * 155
-     * 110
+ ##### SUM values 155+50, check SUM > Load(200). Increment start and add sub list combo to final list combinations. Clear the values of sub list combo.
+ #### Combinations = [[175.00] , [155.00]]
+ #### Combo = []
+-----------------------------------------------------------------------------------------
+#### Step5 
+##### start = 110 end = 50. Add start = 110 to sub list combo.
+#### combo = [110.0]
 
   PK3|PK5|PK4|PK2|PK1
   ---|---|---|---|---
   175|155|**_110_**|75|**_50_**
   
   
- #### 110+50 < Load(200), Add 50 to the list and decrement end
-  
-  * List     
-     * 175
-     * 155
-     * 110,50 
-  
+ ##### SUM Values 110+50, SUM < Load(200), we need to now check if we have any more smaller weights that we can still combine 
+ ##### Add value of end(50) to sublist combo and decrement END.
+ #### combo = [110.00 , 50.00]
   
   PK3|PK5|PK4|PK2|PK1
   ---|---|---|---|---
   175|155|**_110_**|**_75_**|**_50_**
- 
-   
-  #### 110+50+75 > load(200), increment start 
+  
+ ##### SUM = 110+50 =160, Add end(75) to the sum, SUM = 160+75 > Load 
+ ##### Increment start and add sublist combo to final list combinations. Clear sub list combo
+ #### Combinations = [[175.00] , [155.00] , [110.00,50.00]]
+ #### Combo = []
+ -----------------------------------
+ #### Step6 
+ ##### start = end = 75. Add start = 75 to final list combinations and end the loop.
   
   PK3|PK5|PK4|PK2|PK1
   ---|---|---|---|---
   175|155|110|**_75_**|50
  
- #### start == end, End of loop.
-  * List     
-     * 175
-     * 155
-     * 110,50 
-     * 75
+ #### finalCombinations = [[175.00] , [155.00] , [110.00,50.00] , [75.00]]
+------------------------------
