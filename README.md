@@ -136,7 +136,7 @@ PK1 | PK2 | PK3 | PK4 | PK5
   **_175_**|155|110|75|**_50_**
   
  ##### SUM values of start+end (175+50), Check SUM > load(200), which means we dont have any package with smaller weight that can be clubbed with 175. 
- ##### Stop here and add sub List<\Double\> combo to final List<List\<Double\> combinations; and clear the values of sub list combo.
+ ##### Stop here and add sub List\<Double\> combo to final List<List\<Double\> combinations; and clear the values of sub list combo.
  #### Combinations = [[175.00]]
  #### Combo = []
  -------------------------------------------
