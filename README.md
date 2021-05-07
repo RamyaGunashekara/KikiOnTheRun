@@ -12,7 +12,7 @@ Points to note:
 
 <img width="314" alt="Screenshot 2021-04-27 103757" src="https://user-images.githubusercontent.com/12389045/116703220-a70b3080-a9e7-11eb-9871-79e914e5c3cb.png">
 
-I have added a new offer code **OFR004 20% discount Distance - 100.4 - 250.0 Weight - null**
+I have added a new offer code **| OFR004 | 20% discount | Distance Range - 100.4 - 250.0 | Weight - null |**
 
 Delivery cost is calculated using the below formula 
 
@@ -22,12 +22,15 @@ DELIVERYCOST = TOTALCOST - DISCOUNT(IF ANY)
 
 #### ASSUMPTIONS 
 
-1. If the user doesn't have a valid Offer code he can enter NA.
-2. If the input is invalid, system will prompt the user with "Please enter correct input" and user has to restart.
-4. Output will be in the format of Package name Discount TotalCost
-5. OfferCodes can either have weightRange as null or Distance Range as null or both.
-6. Weights entered for each package cant be <=0 or > maximum load specified 
-7. Distance, Load, Speed, Vehicles, Base Delivery Cost cannot be less than 0.
+1. If the user doesn't have a valid Offer code he can enter NA or null.
+2. OfferCodes can either have weightRange as null or Distance Range as null or both.
+3. If the user enters a valid OfferCode, the OfferCode will be checked against offerCriterias, the package should satisfy all the criterias for the offerCode to work.
+4. If the input is invalid, system will prompt with an error message "ERROR: INVALID INPUT! Please enter correct input" and user has to restart.
+5. Output will be in the format of | Package name | Discount | TotalCost | Time |.
+6. Packages names can't be the same, if it's same we wont be able to differentiate between packages in the output.
+7. Weights entered for each package cant be less than or equal to 0 and greater than maximum load specified.
+8. Distance, Load, Speed, Vehicles cannot be less than or equal to 0.
+9. Base cost can be equal to 0 but not less than 0.
 
 --------------------------------------------------------------------------------------------------------------------------------
 
@@ -57,10 +60,11 @@ PK3|175|100
 PK4|110|60
 PK5|155|95
 
-**Method 1**
+I have approached the problem via three different methods and have chosen Method 3 after analysing each method's efficiency.
 
-Lets assume the package arrive in First Come First Service order and we club the packages by summing their weights upto the maximum weight.
+**Method 1(First Come First Service)**
 
+Lets assume the package arrive in **First Come First Service order** and we club the packages by summing their weights upto the maximum weight.
 
 Packages | SUM
 ---------|------
@@ -69,6 +73,7 @@ PK3 (175) | <200
 PK5 (155) | <200
 PK4 (110) | <200
 
+#### Limitations : 
 In this method, the other possible combinations are ignored which might be more efficient. <br>
 For Example
 
@@ -79,7 +84,7 @@ PK5 (155)|PK5(155)
 PK4 + PK1 (110 + 50) | PK4 + PK2 (110 + 75)
 PK2 (75) 	|		              PK1(50)
 
-**Method 2**
+**Method 2(All Permutations and Combinations)**
 
 Find combinations for each package by iterating through the list of packages and add it into a nested list <br><br>
 List<List\<Double\>> combinations;
@@ -92,24 +97,30 @@ List<List\<Double\>> combinations;
   155 | NA
   175 | NA
   
- Select the best combination possible from the list.
- This method will have a time complexity of O(2^n).
+  From the above list we select the feasible combinations which will combine **most weighted** packages into one group.
  
- **Method 3**
+ #### Limitations
+ This method will have a time complexity of **O(2^n)**.
+ 
+ **Method 3(Chosen Method)**
 
-#### Divide and Conquer <br>
-Sort the List by Weight in descending order, by doing this we will have all the heavy packages in the beginning of the list which can be combined with lighter packages at the last. 
+#### Binary search <br>
+We start by sorting the given packages by its weight in descending order. This will give us the heavier packages in the beggining and the lighter packages at the end.
+<br>
+Now with the sorted list we can combine the heavier packages with lighter packages, if we don't find any lighter package to combine, the heavier packages will go on its own as it will be close to the Load specified.
+
+#### Input Packages with its weight
 
 PK1 | PK2 | PK3 | PK4 | PK5
 ----|-----|-----|-----|----
 50|75|175|110|155
 
-#### SORT BY WEIGHT 
+#### Step 1
+#### After sorting the packages BY WEIGHT 
   
   PK3|PK5|PK4|PK2|PK1
   ---|---|---|---|---
   175|155|110|75|50
-  
   
   #### Let start = 175 and End = 50 and Add start value to the list 
     * List     
