@@ -60,7 +60,7 @@ PK3|175|100
 PK4|110|60
 PK5|155|95
 
-I have approached the problem via three different methods and have chosen Method 3 after analysing each method's efficiency.
+I have approached the problem of combining packages via three different methods and have chosen Method 3, after analysing each method's efficiency.
 
 **Method 1(First Come First Service)**
 
@@ -108,7 +108,7 @@ List<List\<Double\>> combinations;
  
  **Method 3(Chosen Method)**
 
-#### Binary search <br>
+#### Similar to Binary search <br>
 We start by sorting the given packages by its weight in descending order. This will give us the heavier packages in the beggining and the lighter packages at the end.
 <br>
 Now with the sorted list we can combine the heavier packages with lighter packages, if we don't find any lighter package to combine, the heavier packages will go on its own as it will be close to the Load specified.
@@ -183,3 +183,21 @@ PK1 | PK2 | PK3 | PK4 | PK5
  
  #### finalCombinations = [[175.00] , [155.00] , [110.00,50.00] , [75.00]]
 ------------------------------
+Even though the concept is derived from Binary search, I wont be able to eliminate any result from comparision. <br>
+I have to go through the entire list, from begining to end.
+I have used Binary method instead of Method 2 to eliminate going through the entire list for each package to find all possible combinations.
+<br>
+
+Time Complexity - O(n).
+
+-------------------------------------------------------------------------------------------------------
+
+#### Assigning Vehicles and calculating time for the combination.
+I derive the minimum time of time taken by each vehicle. 
+Initially all the vehicles minimum time will be zero(0). <br>
+After assigning vehicle to the package, we calculate the time taken by vehicle to deliver all the packages assigned by using the below formula 
+#### Time taken by Vehicle = 2 * ( maximum distance of all the packages / speed )
+This time is added to the minimum time of the vehicle, to compare with other vehicles for the next iteration.
+
+
+
