@@ -39,7 +39,10 @@ public class Display {
 			findDeliveryTime.run(gd);
 			displayOutput(gd.getPackages());
 		} catch (InputMismatchException e) {
-			System.out.println("ERROR: INVALID INPUT! Please enter correct input");
+			if (e.getMessage().isEmpty())
+				System.out.println("ERROR: INVALID INPUT! Please enter correct input");
+			else
+				System.out.println(e.getMessage());
 			run();
 		} finally {
 			scanner.close();
@@ -47,19 +50,24 @@ public class Display {
 	}
 
 	public void validateInput(GenericData gd) {
-		if(gd.getVehicles() <=0 || gd.getMaxLoad() <=0 || gd.getMaxSpeed() <= 0 || gd.getBaseCost() < 0) {
-			throw new InputMismatchException();
+
+		if (gd.getVehicles() <= 0 || gd.getMaxLoad() <= 0 || gd.getMaxSpeed() <= 0 || gd.getBaseCost() < 0) {
+			throw new InputMismatchException("Input cant be less than or equal to zero");
 		}
-		Package[] packages = gd.getPackages();
-		for(Package pk : packages) {
-			if(pk.getWeight() <=0 || pk.getWeight() > gd.getMaxLoad() || pk.getDistance() <= 0)
-				throw new InputMismatchException();
-		}	
+		Package[] pk = gd.getPackages();
+		for (int i = 0; i < pk.length; i++) {
+			if (pk[i].getWeight() <= 0 || pk[i].getWeight() > gd.getMaxLoad() || pk[i].getDistance() <= 0)
+				throw new InputMismatchException("Input can't be less than or equal to zero");
+			if (pk[i].getPackageName().equalsIgnoreCase("null") || (i + 1 < pk.length && pk[i].getPackageName().equalsIgnoreCase(pk[i + 1].getPackageName())))
+				throw new InputMismatchException("Package Name cant be null or same");
+		}
 	}
 
 	private void displayOutput(Package[] pkg) {
 		DecimalFormat df = new DecimalFormat("#.##");
 		df.setRoundingMode(RoundingMode.CEILING);
+		System.out.println();
+		System.out.println();
 		System.out.println("******************************************************");
 		System.out.println("Name \t\t Discount \t TotalCost \t Time");
 		System.out.println("******************************************************");

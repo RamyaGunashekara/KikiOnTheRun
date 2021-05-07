@@ -69,23 +69,31 @@ public class DeliveryTimeEstimator {
 		}
 		Package[] pkg = gd.getPackages();
 		double maxSpeed = gd.getMaxSpeed();
+		System.out.println("Package Combinations");
 		for (List<Package> list : combinations) {
 			double maxDistance;
 			if (list.size() == 1)
 				maxDistance = list.get(0).getDistance();
 			else
 				maxDistance = list.stream().max(Comparator.comparingDouble(p -> p.getDistance())).get().getDistance();
+			list.spliterator().forEachRemaining((pk) -> System.out.print(pk.getPackageName() + " | "));
 			assignVehicle(maxDistance, list, maxSpeed, vehicles);
+			System.out.println("____________________________________________________________________");
 		}
 		Comparator<Package> byName = Comparator.comparing(Package::getPackageName);
 		Arrays.sort(pkg, byName);
 	}
 
 	private void assignVehicle(double maxDistance, List<Package> list, double maxSpeed, Vehicle[] vehicles) {
-		Vehicle v = Arrays.stream(vehicles).min(Comparator.comparingDouble(Vehicle::getTime)).get();
-		v.setMinTime(v.getTime());
+		Vehicle[] remainingVehicle = vehicles;
+		Vehicle v = Arrays.stream(remainingVehicle).min(Comparator.comparingDouble(Vehicle::getTime)).get();
+		System.out.print("Vehicle " + v.getVehicle());
+		System.out.printf("  ( StartTime %.2f ", v.getTime());
 		v.setTime(v.getMinTime() + (2 * maxDistance / maxSpeed));
 		for (Package p : list)
 			p.setDeliveryTime(v.getMinTime() + (p.getDistance() / maxSpeed));
+		v.setMinTime(v.getTime());
+		System.out.printf(" EndTime %.2f )", v.getTime());
+		System.out.println(" ");
 	}
 }

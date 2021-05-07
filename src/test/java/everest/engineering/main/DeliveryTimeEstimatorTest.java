@@ -25,7 +25,7 @@ public class DeliveryTimeEstimatorTest {
 		this.pkgGeneratorService = new PackageGenerator();
 		this.gdGeneratorService = new GenericDataGenerator();
 	}
-	
+
 	@Test
 	public void checkDeliveryTimeIfValidInputs() {
 		Package[] packages = new Package[5];
@@ -43,11 +43,15 @@ public class DeliveryTimeEstimatorTest {
 		outputPkg = packages;
 		GenericData outputgd = gdGeneratorService.create(outputPkg, 320, 1, 200, 90);
 		GenericData inputgd = gdGeneratorService.create(packages, 100, 2, 70, 200);
-		packages[2].setDeliveryTime(100.0/70.0);
-		packages[4].setDeliveryTime(95.0/70.0);
-		packages[3].setDeliveryTime(2 * packages[4].getDeliveryTime() + 110.0/70.0);
-		packages[0].setDeliveryTime(2 * packages[4].getDeliveryTime() + 30.0/70.0);
-		packages[1].setDeliveryTime(2 * packages[2].getDeliveryTime() + 125.0/70.0);
+		// Vehicle 1 should be assigned
+		packages[2].setDeliveryTime(100.0 / 70.0);
+		// Vehicle 2 should be assigned
+		packages[4].setDeliveryTime(95.0 / 70.0);
+		// Vehicle 2 should be assigned after it completes delivering package 4
+		packages[3].setDeliveryTime(2 * packages[4].getDeliveryTime() + 110.0 / 70.0);
+		packages[0].setDeliveryTime(2 * packages[4].getDeliveryTime() + 30.0 / 70.0);
+		// Vehicle 1 should be assigned
+		packages[1].setDeliveryTime(2 * packages[2].getDeliveryTime() + 125.0 / 70.0);
 		deliveryApp.run(outputgd);
 		assertTrue(inputgd.getPackages().equals(outputgd.getPackages()));
 	}
