@@ -12,6 +12,11 @@ public class CostEstimator {
 	public void run(GenericData gd) {
 		Package[] packages = gd.getPackages();
 		double baseCost = gd.getBaseCost();
+		if(packages.length == 1) {
+			calculateDiscount(packages[0]);
+			calculateCost(packages[0], baseCost);
+			return;
+		}
 		for (Package pk : packages) {
 			calculateDiscount(pk);
 			calculateCost(pk, baseCost);
@@ -20,7 +25,7 @@ public class CostEstimator {
 
 	private void calculateCost(Package pkg, double baseCost) {
 		double deliveryCost = baseCost + (pkg.getWeight() * 10) + (pkg.getDistance() * 5);
-		double discount = (deliveryCost * pkg.getDiscount()) / 100;
+		double discount = deliveryCost * (pkg.getDiscount() / 100.00);
 		pkg.setDiscount(discount);
 		pkg.setTotalCost(deliveryCost - discount);
 	}
@@ -32,8 +37,7 @@ public class CostEstimator {
 				pkg.setDiscount(0);
 				return;
 			}
-		}
-		else {
+		} else {
 			pkg.setDiscount(0);
 			return;
 		}
@@ -42,11 +46,17 @@ public class CostEstimator {
 		double discount = 0;
 		int rowCount = offTable.getRowCount();
 		for (int i = 0; i < rowCount; i++) {
+			// Check if the OfferCode is present in the JTable data
 			if (((String) offTable.getValueAt(i, 0)).equalsIgnoreCase(pkg.getOfferCode())) {
 				distanceRange = (Range<Double>) offTable.getValueAt(i, 2);
 				weightRange = (Range<Double>) offTable.getValueAt(i, 3);
 				discount = (int) offTable.getValueAt(i, 1);
+				/*
+				 * Check if the Distance and weight of the package are within the range, if not
+				 * discount = 0
+				 */
 				if (distanceRange == null && weightRange == null)
+					// If no range specified retain the discount value
 					break;
 				else if (distanceRange == null && weightRange.contains(pkg.getWeight())) {
 					break;

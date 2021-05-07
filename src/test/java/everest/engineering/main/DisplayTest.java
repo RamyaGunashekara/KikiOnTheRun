@@ -28,22 +28,34 @@ public class DisplayTest {
 
 	@Test(expected = InputMismatchException.class)
 	public void checkGenericDataForNegativeOrZeroValues() {
-		Package[] pkg = new Package[2];
+		Package[] pkg = new Package[1];
 		pkg[0] = new Package();
 		pkg[0] = pkgGeneratorService.create("P1", 0.0, 0.00, "OFR001");
 		GenericData gd = new GenericData();
 		gd = gdGeneratorService.create(pkg, 122.0, 0.0, 0.0, -11.89);
 		app.validateInput(gd);
 	}
-	
+
 	@Test(expected = InputMismatchException.class)
 	public void checkIfWeightsAreLessThanMaxLoad() {
-		Package[] pkg = new Package[2];
+		Package[] pkg = new Package[1];
 		pkg[0] = new Package();
 		pkg[0] = pkgGeneratorService.create("P1", 345.12, 75.00, "OFR001");
 		GenericData gd = new GenericData();
-		//Package BaseCost NumberOfVehicle MaxSpeed MaxLoad
 		gd = gdGeneratorService.create(pkg, 122.0, 2.0, 65.00, 310.00);
 		app.validateInput(gd);
 	}
+	
+	@Test(expected = InputMismatchException.class)
+	public void checkIfPackageNameIsNotSameOrEqualToNull() {
+		Package[] pkg = new Package[2];
+		pkg[0] = new Package();
+		pkg[0] = pkgGeneratorService.create("P1", 345.12, 75.00, "OFR001");
+		pkg[1] = new Package();
+		pkg[1] = pkgGeneratorService.create("P1", 345.12, 75.00, "OFR001");
+		GenericData gd = new GenericData();
+		gd = gdGeneratorService.create(pkg, 122.0, 2.0, 65.00, 400.00);
+		app.validateInput(gd);
+	}
+	
 }
