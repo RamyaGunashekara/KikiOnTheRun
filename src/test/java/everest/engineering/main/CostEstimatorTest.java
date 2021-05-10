@@ -57,7 +57,6 @@ public class CostEstimatorTest {
 		gd = gdGeneratorService.create(pkg, 122.0, 2.0, 122.0, 12.89);
 		double totalCost = 122.0 + (70.23 * 10) + (100.00 * 5);
 		double expectedDiscount = 0.1 * totalCost;
-		expectedDiscount = Math.round(expectedDiscount * 100.0) / 100.0;
 		costEstimator.run(gd);
 		assertEquals(expectedDiscount, pkg[0].getDiscount(), 0.00);
 	}
@@ -71,15 +70,7 @@ public class CostEstimatorTest {
 		gd = gdGeneratorService.create(pkg, 122.0, 2.0, 122.0, 12.89);
 		double totalCost = 122.0 + (70.23 * 10) + (100.00 * 5);
 		double expectedDiscount = 0.1 * totalCost;
-		expectedDiscount = Math.round(expectedDiscount * 100.0) / 100.0;
 		costEstimator.run(gd);
 		assertEquals(expectedDiscount, pkg[0].getDiscount(), 0.00);
-	}
-
-	@Test
-	public void getDesiredResult() {
-		Package[] pkg = new Package[7];
-		pkg[0] = new Package();
-
 	}
 }

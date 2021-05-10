@@ -43,7 +43,7 @@ public class DeliveryTimeEstimator {
 					combo.add(pkg[end]);
 					end--;
 					if (start == end) {
-						// we have reached the end of package
+						// end of packages so return
 						combinations.add(new ArrayList<>(combo));
 						return;
 					}
@@ -85,8 +85,7 @@ public class DeliveryTimeEstimator {
 	}
 
 	private void assignVehicle(double maxDistance, List<Package> list, double maxSpeed, Vehicle[] vehicles) {
-		Vehicle[] remainingVehicle = vehicles;
-		Vehicle v = Arrays.stream(remainingVehicle).min(Comparator.comparingDouble(Vehicle::getTime)).get();
+		Vehicle v = Arrays.stream(vehicles).min(Comparator.comparingDouble(Vehicle::getTime)).get();
 		System.out.print("Vehicle " + v.getVehicle());
 		System.out.printf("  ( StartTime %.2f ", v.getTime());
 		v.setTime(v.getMinTime() + (2 * maxDistance / maxSpeed));
