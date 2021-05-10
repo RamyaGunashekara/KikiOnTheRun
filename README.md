@@ -199,5 +199,10 @@ After assigning vehicle to the package, we calculate the time taken by vehicle t
 #### Time taken by Vehicle = 2 * ( maximum distance of all the packages / speed )
 This time is added to the minimum time of the vehicle, to compare with other vehicles for the next iteration.
 
+------------------------------------------------------------------------
 
+### How to use Input.xls file 
+Enter the number of packages as either 100 / 300
+Enter the base cost, number of vehicles, speed and maximum load each vehicle can carry.
+Copy paste the values from the file.
 
